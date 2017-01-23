@@ -44,6 +44,14 @@ namespace Microsoft.NET.Sdk.Publish.Tasks
         /// Flag that determines whether the publish telemtry needs to be disabled. 
         /// </summary>
         public bool IgnoreProjectGuid { get; set; }
+        /// <summary>
+        /// Absolute path to the project file.
+        /// </summary>
+        public string ProjectFullPath { get; set; }
+        /// <summary>
+        /// Absolute path to the Solution file.
+        /// </summary>
+        public string SolutionPath { get; set; }
 
         public override bool Execute()
         {
@@ -74,9 +82,8 @@ namespace Microsoft.NET.Sdk.Publish.Tasks
             string outputFile = Path.GetFileName(TargetPath);
             XDocument transformedConfig = WebConfigTransform.Transform(webConfigXml, outputFile, IsAzure, IsPortable);
 
-            // Add the projectGuid to web.config if it is not present.
-            transformedConfig = WebConfigTransform.AddProjectGuidToWebConfig(transformedConfig, ProjectGuid, IgnoreProjectGuid);
-
+            // Telemetry
+            transformedConfig = WebConfigTelemetry.AddTelemetry(transformedConfig, ProjectGuid, IgnoreProjectGuid, SolutionPath, ProjectFullPath);
             using (FileStream f = new FileStream(webConfigPath, FileMode.Create))
             {
                 transformedConfig.Save(f);

@@ -1,9 +1,11 @@
-﻿using Xunit;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.NET.Sdk.Publish.Tasks;
+using Xunit;
 
-// Copied from https://raw.githubusercontent.com/aspnet/IISIntegration/50f066579a96c6f2b2a4c47524c684e1ef3dfdf0/test/Microsoft.AspNetCore.Server.IISIntegration.Tools.Tests/WebConfigTransformFacts.cs
+// Some of the tests Copied from https://raw.githubusercontent.com/aspnet/IISIntegration/50f066579a96c6f2b2a4c47524c684e1ef3dfdf0/test/Microsoft.AspNetCore.Server.IISIntegration.Tools.Tests/WebConfigTransformFacts.cs
 
 namespace Microsoft.Net.Sdk.Publish.Tasks.Tests
 {
